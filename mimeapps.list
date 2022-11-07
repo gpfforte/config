@@ -1,0 +1,9 @@
+[Added Associations]
+text/x-python=geany.desktop;vim.desktop;
+application/x-shellscript=geany.desktop;
+text/plain=vim.desktop;geany.desktop;
+
+[Default Applications]
+application/x-shellscript=geany.desktop
+text/plain=geany.desktop
+text/x-python=geany.desktop
