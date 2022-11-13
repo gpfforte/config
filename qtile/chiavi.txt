@@ -1,0 +1,50 @@
+                                        WIN                                        
+['mod4'] + h.................................................WIN-Move focus to left
+['mod4'] + Left..............................................WIN-Move focus to left
+['mod4'] + l................................................WIN-Move focus to right
+['mod4'] + Right.............................................WIN-Move focus to left
+['mod4'] + j....................................................WIN-Move focus down
+['mod4'] + k......................................................WIN-Move focus up
+['mod4'] + space..............................WIN-Move window focus to other window
+['mod4', 'shift'] + h...................................WIN-Move window to the left
+['mod4', 'shift'] + l..................................WIN-Move window to the right
+['mod4', 'shift'] + j..........................................WIN-Move window down
+['mod4', 'shift'] + k............................................WIN-Move window up
+['mod4', 'control'] + h.................................WIN-Grow window to the left
+['mod4', 'control'] + l................................WIN-Grow window to the right
+['mod4', 'control'] + j........................................WIN-Grow window down
+['mod4', 'control'] + k..........................................WIN-Grow window up
+['mod4'] + n.............................................WIN-Reset all window sizes
+['mod4'] + Tab...........................................WIN-Toggle between layouts
+['mod4'] + w................................................WIN-Kill focused window
+['mod1'] + F4...............................................WIN-Kill focused window
+['mod4', 'shift'] + Return......WIN-Toggle between split and unsplit sides of stack
+['mod4'] + f..................................................WIN-toggle fullscreen
+                                        COM                                        
+['mod4'] + Return...............................................COM-Launch terminal
+['mod4', 'control'] + r.......................................COM-Reload the config
+['mod4', 'control'] + q..........................................COM-Shutdown Qtile
+['mod4', 'control'] + x.............................................COM-Shutdown PC
+['mod4'] + r..............................COM-Spawn a command using a prompt widget
+['mod4'] + t.....................................................COM-rofi -show run
+['mod4'] + d....................................................COM-rofi -show drun
+['mod4'] + s..................................................COM-rofi -show window
+['mod4'] + e.........................................................COM-open Geany
+['mod4'] + b.......................................................COM-open Browser
+['mod4'] + n..................................................COM-open File Manager
+['mod4'] + k..................................................COM-show key bindings
+['mod4'] + F1.................................................COM-show key bindings
+                                        WOR                                        
+['mod1'] + Tab...........................................WOR-Move to next Workspace
+['mod4', 'control'] + Left..................................WOR-Goto Left Workspace
+['mod4', 'control'] + Right................................WOR-Goto Right Workspace
+['mod4'] + 1..................................................WOR-Switch to group 1
+['mod4', 'shift'] + 1................WOR-Switch to & move focused window to group 1
+['mod4'] + 2..................................................WOR-Switch to group 2
+['mod4', 'shift'] + 2................WOR-Switch to & move focused window to group 2
+['mod4'] + 3..................................................WOR-Switch to group 3
+['mod4', 'shift'] + 3................WOR-Switch to & move focused window to group 3
+['mod4'] + 4..................................................WOR-Switch to group 4
+['mod4', 'shift'] + 4................WOR-Switch to & move focused window to group 4
+['mod4'] + 5..................................................WOR-Switch to group 5
+['mod4', 'shift'] + 5................WOR-Switch to & move focused window to group 5

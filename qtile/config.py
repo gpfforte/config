@@ -33,29 +33,17 @@ import os
 import subprocess
 
 
-
-# @hook.subscribe.addgroup
-# def goto_group(qtile, name):
-# '''Switch to group when window opens in it. Useful with dynamic
-# groups'''
-    # if qtile.ready:
-        # qtile.groupMap[name].cmd_toscreen()
-
-# def main(qtile):
-    # qtile.ready = False
-
-# @hook.subscribe.startup
-# def qtile_is_ready():
-    # qtile.ready = True
+home = os.path.expanduser('~')
 
 
 @hook.subscribe.client_managed
 def show_window(window):
+    """Makes the window to appear on screen even if it goes 
+    automatically to a different workspace"""
     window.group.cmd_toscreen()
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 black = "#000000"
@@ -67,33 +55,39 @@ yellow = "#FFFF00"
 middle_gray = "#888888"
 light_red_berry = "#dd7e6b"
 
-mod = "mod4"
+mod = "mod4" # Super Key
+alt = "mod1"
 terminal = "alacritty"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "Left", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "Right", lazy.layout.right(), desc="Move focus to left"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "h", lazy.layout.left(), desc="WIN-Move focus to left"),
+    Key([mod], "Left", lazy.layout.left(), desc="WIN-Move focus to left"),
+    Key([mod], "l", lazy.layout.right(), desc="WIN-Move focus to right"),
+    Key([mod], "Right", lazy.layout.right(), desc="WIN-Move focus to left"),
+    Key([mod], "j", lazy.layout.down(), desc="WIN-Move focus down"),
+    Key([mod], "k", lazy.layout.up(), desc="WIN-Move focus up"),
+    Key([mod], "space", lazy.layout.next(), desc="WIN-Move window focus to other window"),
+    
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="WIN-Move window to the left"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="WIN-Move window to the right"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="WIN-Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="WIN-Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="WIN-Grow window to the left"),
+    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="WIN-Grow window to the right"),
+    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="WIN-Grow window down"),
+    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="WIN-Grow window up"),
+    Key([mod], "n", lazy.layout.normalize(), desc="WIN-Reset all window sizes"),
+    # Toggle between different layouts as defined below
+    Key([mod], "Tab", lazy.next_layout(), desc="WIN-Toggle between layouts"),
+    Key([mod], "w", lazy.window.kill(), desc="WIN-Kill focused window"),
+    Key([alt], "F4", lazy.window.kill(), desc="WIN-Kill focused window"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -102,43 +96,42 @@ keys = [
         [mod, "shift"],
         "Return",
         lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
+        desc="WIN-Toggle between split and unsplit sides of stack",
     ),
     Key([mod], "f",
         lazy.window.toggle_fullscreen(),
-        desc='toggle fullscreen'
+        desc='WIN-toggle fullscreen'
     ),
 
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod, "control"], "x", lazy.spawn("shutdown now"), desc="Shutdown PC"),    
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "Return", lazy.spawn(terminal), desc="COM-Launch terminal"),
+
+    Key([mod, "control"], "r", lazy.reload_config(), desc="COM-Reload the config"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="COM-Shutdown Qtile"),
+    Key([mod, "control"], "x", lazy.spawn("shutdown now"), desc="COM-Shutdown PC"),    
+    Key([mod], "r", lazy.spawncmd(), desc="COM-Spawn a command using a prompt widget"),
 
     # My Keys
-    Key([mod], 't', lazy.spawn('rofi -show run')),
-    Key([mod], 'd', lazy.spawn('rofi -show drun')),
-    Key([mod], 's', lazy.spawn('rofi -show window')),
-    Key([mod], 'e', lazy.spawn('geany')),
-    Key([mod], 'b', lazy.spawn('firefox')),
-    Key([mod], 'n', lazy.spawn('nemo')),
-    # Key([mod, "control"], 'q', lazy.spawn('shutdown now')),
+    Key([mod], 't', lazy.spawn('rofi -show run'), desc = 'COM-rofi -show run'),
+    Key([mod], 'd', lazy.spawn('rofi -show drun'), desc = 'COM-rofi -show drun'),
+    Key([mod], 's', lazy.spawn('rofi -show window'), desc = 'COM-rofi -show window'),
+    Key([mod], 'e', lazy.spawn('geany'), desc = 'COM-open Geany'),
+    Key([mod], 'b', lazy.spawn('firefox'), desc = 'COM-open Browser'),
+    Key([mod], 'n', lazy.spawn('pcmanfm'), desc = 'COM-open File Manager'),
+    Key([mod], 'k', lazy.spawn('bash '+home+'/scripts/keys.sh'), desc = 'COM-show key bindings'),
+    Key([mod], 'F1', lazy.spawn('bash '+home+'/scripts/keys.sh'), desc = 'COM-show key bindings'),
     # Group
-    Key([mod, "control"], 'Left', lazy.screen.prev_group()),
-    Key([mod, "control"], 'Right', lazy.screen.next_group()),
+    Key([alt], "Tab", lazy.screen.next_group(), desc="WOR-Move to next Workspace"),
+    Key([mod, "control"], 'Left', lazy.screen.prev_group(), desc = 
+    'WOR-Goto Left Workspace'),
+    Key([mod, "control"], 'Right', lazy.screen.next_group(), desc = 
+    'WOR-Goto Right Workspace'),
 ]
 
-groups = [Group("1", label = "EDI", layout = "monadtall", matches = 
-[Match(wm_class="geany"),], spawn = "geany"),
-          Group("2", label = "WEB", layout = "monadtall", matches = 
-          [Match(wm_class="firefox"),], spawn = "firefox"),
-          Group("3", label = "TER", layout = "monadtall", matches = 
-          [Match(wm_class="Alacritty"),], spawn = "alacritty"),
-          Group("4", label = "4", layout = "max"),
-          Group("5", label = "5"),]
+groups = [Group("1", label = "", layout = "monadtall", spawn = "geany"),
+          Group("2", label = "爵", layout = "monadtall", spawn = "firefox"),
+          Group("3", label = "", layout = "monadtall", spawn = "alacritty"),
+          Group("4", label = "", layout = "monadtall", spawn = "pcmanfm"),
+          Group("5", label = "", layout = "monadtall"),]
 
 # groups = [Group(i) for i in "12345"]
 
@@ -151,14 +144,14 @@ for i in groups:
                 [mod],
                 i.name,
                 lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
+                desc="WOR-Switch to group {}".format(i.name),
             ),
             # mod1 + shift + letter of group = switch to & move focused window to group
             Key(
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
+                desc="WOR-Switch to & move focused window to group {}".format(i.name),
             ),
             # Or, use below if you prefer not to switch to that group.
             # # mod1 + shift + letter of group = move focused window to group
@@ -168,24 +161,29 @@ for i in groups:
     )
 
 layouts = [
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     layout.MonadTall(),
     layout.Max(),
     layout.MonadWide(),
+    layout.Floating(),
+    layout.TreeTab(),
+    # layout.Spiral(),
+    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
-    layout.Floating(),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.RatioTile(),
     # layout.Tile(),
-    layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
-    font="Sans",
+    # font="Sans",
+    font="Ubuntu Nerd Font",
+    # font="SourceCodePro",
+    # font="SauceCodePro",
+    # font="LiberationMono Nerd Font",
     fontsize=14,
     padding=3,
 )
@@ -202,9 +200,10 @@ screens = [
                        ),
                 widget.Sep(),
                 widget.CurrentLayout(),
-                widget.GroupBox(block_highlight_text_color=red, 
+                widget.GroupBox(
+                    #block_highlight_text_color=red, 
                     highlight_method='block', disable_drag = True, fmt = 
-                    'WS: {}',inactive=green),
+                    ' {} ',inactive=green, fontsize=20),
                 widget.Sep(),
                 widget.WindowTabs(),
                 widget.Volume(),
@@ -270,6 +269,7 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(wm_class="Yad"),  
     ]
 )
 auto_fullscreen = True
@@ -292,3 +292,14 @@ wl_input_rules = None
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+category_prev=""
+with open(home + "/.config/qtile/chiavi.txt", "w",encoding = 'utf-8') as f:
+    for key in keys:
+        len_filler = 80 - (len(key.desc)+len(str(key.modifiers))+len(key.key))
+        if key.desc[0:3] != category_prev:
+            f.write(f"{key.desc[0:3].center(83)}\n")
+            category_prev=key.desc[0:3]
+        f.write(f"{key.modifiers} + {key.key}{'.'*len_filler}{key.desc}\n")
+# for key in keys:
+    # print(key)
+    
