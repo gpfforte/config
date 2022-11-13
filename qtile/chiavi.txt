@@ -48,3 +48,5 @@
 ['mod4', 'shift'] + 4................WOR-Switch to & move focused window to group 4
 ['mod4'] + 5..................................................WOR-Switch to group 5
 ['mod4', 'shift'] + 5................WOR-Switch to & move focused window to group 5
+['mod4'] + 6..................................................WOR-Switch to group 6
+['mod4', 'shift'] + 6................WOR-Switch to & move focused window to group 6

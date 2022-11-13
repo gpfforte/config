@@ -131,7 +131,9 @@ groups = [Group("1", label = "", layout = "monadtall", spawn = "geany"),
           Group("2", label = "爵", layout = "monadtall", spawn = "firefox"),
           Group("3", label = "", layout = "monadtall", spawn = "alacritty"),
           Group("4", label = "", layout = "monadtall", spawn = "pcmanfm"),
-          Group("5", label = "", layout = "monadtall"),]
+          Group("5", label = "", layout = "monadtall"),
+          Group("6", label = "", layout = "monadtall"),]
+          # ""
 
 # groups = [Group(i) for i in "12345"]
 
