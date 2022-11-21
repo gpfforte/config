@@ -25,7 +25,7 @@
 # SOFTWARE.
 
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, KeyChord
 from libqtile.lazy import lazy
 # from libqtile.utils import guess_terminal
 from libqtile import hook, qtile
@@ -92,6 +92,12 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
+    # Key for monadtall
+    Key([mod], "m", lazy.layout.grow(), desc="WIN-Grow"),
+    Key([mod], "v", lazy.layout.shrink(), desc="WIN-Shrink"),
+    Key([mod], "x", lazy.layout.maximize(), desc="WIN-Maximize"),
+    Key([mod, "shift"], "space", lazy.layout.flip(), desc="WIN-Flip"),
+    # Fine layout monadtall
     Key(
         [mod, "shift"],
         "Return",
@@ -127,10 +133,10 @@ keys = [
     'WOR-Goto Right Workspace'),
 ]
 
-groups = [Group("1", label = "", layout = "monadtall", spawn = "geany"),
-          Group("2", label = "爵", layout = "monadtall", spawn = "firefox"),
-          Group("3", label = "", layout = "monadtall", spawn = "alacritty"),
-          Group("4", label = "", layout = "monadtall", spawn = "pcmanfm"),
+groups = [Group("1", label = "", layout = "monadtall"),
+          Group("2", label = "爵", layout = "monadtall"),
+          Group("3", label = "", layout = "monadtall"),
+          Group("4", label = "", layout = "monadtall"),
           Group("5", label = "", layout = "monadtall"),
           Group("6", label = "", layout = "monadtall"),]
           # ""
@@ -162,14 +168,15 @@ for i in groups:
         ]
     )
 
+
 layouts = [
-    layout.MonadTall(),
+    layout.MonadTall(margin = 10, border_width = 2),
     layout.Max(),
     layout.MonadWide(),
     layout.Floating(),
     layout.TreeTab(),
     # layout.Spiral(),
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -201,11 +208,12 @@ screens = [
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal)}
                        ),
                 widget.Sep(),
-                widget.CurrentLayout(),
                 widget.GroupBox(
                     #block_highlight_text_color=red, 
                     highlight_method='block', disable_drag = True, fmt = 
-                    ' {} ',inactive=green, fontsize=20),
+                    ' {} ',inactive=green, fontsize=24, font="Font Awesome 6 Brands"),
+                widget.Sep(),
+                widget.CurrentLayout(),
                 widget.Sep(),
                 widget.WindowTabs(),
                 widget.Volume(),
@@ -220,13 +228,13 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("gpf config", name="gpf default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                widget.CheckUpdates(distro = 'Arch', 
+                # widget.TextBox("gpf config", name="gpf default"),
+                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.CheckUpdates(distro = 'Arch_checkupdates', 
                                     colour_have_updates = red, 
                                     colour_no_updates = green, 
                                     no_update_string = "No Updates",
-                                    update_interval = 60,
+                                    update_interval = 3600,
                                     mouse_callbacks = {'Button1': 
                                         lambda: qtile.cmd_spawn(terminal + ' -e sudo pacman -Syu')}),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
@@ -304,4 +312,5 @@ with open(home + "/.config/qtile/chiavi.txt", "w",encoding = 'utf-8') as f:
         f.write(f"{key.modifiers} + {key.key}{'.'*len_filler}{key.desc}\n")
 # for key in keys:
     # print(key)
-    
+# Keychord    
+keys.extend ([(KeyChord([mod], "z", [Key([], "x", lazy.spawn("xterm"))], name = "TERMINAL"))])
