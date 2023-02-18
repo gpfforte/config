@@ -62,3 +62,4 @@
 (package! minimap)
 (package! emojify)
 (unpin! org-roam company-org-roam)
+(package! org-roam-ui)
