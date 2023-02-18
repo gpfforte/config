@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+(setq user-full-name "Gianpietro Forte"
+      user-mail-address "gpf_forte@hotmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -46,11 +46,18 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/org/")
+;;(setq org-agenda-files "~/Documents/org/roam/")
+;;The following option tell agenda where to look for files, if it's a directory all the files inside are scanned.
+(setq org-agenda-files '("~/Documents/org/" "~/Documents/org/roam/"))
+(setq org-roam-directory "~/Documents/org/roam/")
 
+
+;; To set up a list of directory to look for todo set the variable org-agenda-files as below
+;;(setq org-agenda-files '("~/Documents/org/" "~/Documents/org/training/"))
+;;
 (setq org-support-shift-select t)
-
-(setq x-select-enable-clipboard t)
-
+(setq select-enable-clipboard t)
+(setq org-roam-completion-everywhere t)
 ;;(after! org
 ;;  (setq org-bullets-mode t))
 
@@ -108,7 +115,7 @@
   (setq
 ;; Sembra che siano ammessi solo singoli caratteri e non sequenze
 ;;    org-superstar-headline-bullets-list '("○" "○○" "○○○" "○○○◉" "○○○◉◉" "○○○◉◉◉")
-    org-superstar-headline-bullets-list '("▷" "○" "◉")
+    org-superstar-headline-bullets-list '("✿" "○" "◉")
     ))
 ;; ("▷" "⁖" "◉" "○" "✸" "✿")
 ;; (after! org
@@ -118,27 +125,39 @@
 (custom-set-faces
   ;;'(org-level-1 ((t (:family "Fira Code" :inherit outline-1 :height 2.2))))
   '(org-level-1 ((t (:inherit outline-1 :height 1.7 :foreground "#FF5E5E"))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.6 :foreground "blue"))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.5 :foreground "yellow"))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.6 :foreground "#54aedb"))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.5 :foreground "#bac74d"))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.4 :foreground "orange"))))
-  '(org-level-5 ((t (:inherit outline-5 :height 1.3 :foreground "cyan"))))
-  '(org-level-6 ((t (:inherit outline-5 :height 1.2 :foreground "purple"))))
-)
+  '(org-level-5 ((t (:inherit outline-5 :height 1.3 :foreground "#6fc74d"))))
+  '(org-level-6 ((t (:inherit outline-5 :height 1.2 :foreground "#e1408f"))))
+  )
+;;(custom-set-faces
+;;  '((org-roam-link org-roam-link-current)
+;;    :foreground "#e24888" :underline t))
+(setq org-roam-db-autosync-mode t)
+(setq org-roam-mode-sections
+      (list #'org-roam-backlinks-section
+            #'org-roam-reflinks-section
+            ;; #'org-roam-unlinked-references-section
+            ))
 ;; With the following lines when an org file is saved even tangled blocks of source code are saved
 (add-hook 'org-mode-hook
           (lambda () (add-hook 'after-save-hook #'org-babel-tangle
                           :append :local)))
 (use-package emojify
   :hook (after-init . global-emojify-mode))
+(setq minimap-window-location 'right)
+
 ;; Use SPC TAB TAB to comment/uncomment lines
 (map! :leader
       :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
       )
-(setq minimap-window-location 'right)
 ;; Use SPC t m to toggle minimap
 (map! :leader
       (:prefix ("t" . "toggle")
        :desc "Toggle minimap-mode" "m" #'minimap-mode))
 (minimap-mode t)
 (command-log-mode t)
+(rainbow-mode t)
+
 ;; (clm/open-command-log-buffer)

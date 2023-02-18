@@ -61,3 +61,4 @@
 (package! counsel)
 (package! minimap)
 (package! emojify)
+(unpin! org-roam company-org-roam)
