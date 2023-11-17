@@ -44,9 +44,6 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- Disable netrw because interfere with nvim-tree
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.opt.colorcolumn = "79" -- set a visual marker to see the right margin
-vim.opt.foldlevel = 99 -- set in a way that the programs open unfolded
-vim.opt.splitright = true -- this way the split opens ont he right
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -267,12 +264,6 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
 
 -- empty setup using defaults
 --require("nvim-tree").setup()
@@ -297,93 +288,9 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
--- vim.keymap.set('n', '<leader>f', ':NvimTreeToggle<CR>', {
---   noremap = true
--- })
-vim.keymap.set('n', '<F2>', ':NvimTreeToggle<CR>', {
-  noremap = true
-})
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-
--- Set highlight on search
-vim.o.hlsearch = true
-
--- Make line numbers default
-vim.wo.number = true
-vim.wo.relativenumber = true
--- vim.g.startify_bookmarks = true
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
---vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
--- Search
-vim.opt.showmatch = true
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
-vim.opt.path = { '**' }
-vim.opt.wildignore = { '*.git/*', '*node_modules/*', '*vendor/*', '*dist/*', '*build/*',"/*venv*/" }
-
--- Editor
-vim.opt.expandtab = true
-vim.opt.lazyredraw = true
-vim.opt.spell = false
-vim.opt.wrap = false
-vim.opt.scrolloff = 1
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
-vim.opt.softtabstop = 4
-vim.opt.wildignorecase = true
-
--- System
-vim.opt.history = 10000
-vim.opt.swapfile = false
-vim.opt.undolevels = 10000
-vim.opt.updatetime = 500
-
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -451,26 +358,6 @@ local function live_grep_git_root()
 end
 
 vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
-
--- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -585,23 +472,6 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
-
--- keep visual selection when (de)indenting
-vim.keymap.set("v", "<", "<gv", {})
-vim.keymap.set("v", ">", ">gv", {})
-
--- Move selected lines up/down in visual mode
-vim.keymap.set("x", "K", ":move '<-2<CR>gv=gv", {})
-vim.keymap.set("x", "J", ":move '>+1<CR>gv=gv", {})
-
-vim.keymap.set({ "n", "v", "i" }, "<C-S>", "<C-c>:update<cr>", { silent = true, desc = "Save" })
-vim.keymap.set("n", "<C-l>","<C-w>l")
-vim.keymap.set("n", "<C-h>","<C-w>h")
-vim.keymap.set("n", "<C-j>","<C-w>j")
-vim.keymap.set("n", "<C-k>","<C-w>k")
-
--- Turn off search matches with double-<Esc>
-vim.keymap.set("n", "<Esc><Esc>", "<Esc>:nohlsearch<CR>", { silent = true })
 
 -- document existing key chains
 require('which-key').register {
@@ -755,6 +625,8 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 --
 -- Following there all the required files that can be plugin or configuration 
 require 'autopairs-config'
+require("options")
+require("keymaps")
 require("nvim-tree.api").tree.open({path="C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python"})
 -- 
 --
