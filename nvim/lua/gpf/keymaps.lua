@@ -67,4 +67,7 @@ map("n", "<leader>'", "<Esc>:set list!<CR>",
 -- Change current working dir (:pwd) to curent file's folder
 map("n", "<leader>%",  function() require("utils").set_cwd() end,
   { silent = true, desc = "smart set cwd (git|file parent)" })
+-- Open python directory
+map("n", "<leader>p", ":cd C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python <CR>", { silent = true, desc = "cd Python" })
+
 
