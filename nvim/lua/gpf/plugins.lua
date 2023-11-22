@@ -50,15 +50,28 @@ require('lazy').setup({
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
     end
-},
+  },
   -- Toggle Term
   {
-      'akinsho/toggleterm.nvim',
-      config = true
+    'akinsho/toggleterm.nvim',
+    config = true,
+    direction = "float",
+    float_opts = {
+      -- The border key is *almost* the same as 'nvim_open_win'
+      -- see :h nvim_open_win for details on borders however
+      -- the 'curved' border is a custom border type
+      -- not natively supported but implemented in this plugin.
+      border = 'curved', --| ... other options supported by win open
+      -- like `size`, width and height can be a number or function which is passed the current terminal
+      width = 60,
+      height = 60,
+      winblend = 3,
+      zindex = 1,
+    },
   },
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -92,11 +105,13 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
+      -- Completion from buffer
+      'hrsh7th/cmp-buffer',
     },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',       opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -136,25 +151,26 @@ require('lazy').setup({
     },
   },
   -- nvim tree
-  {  'nvim-tree/nvim-tree.lua'},
-  {  'nvim-tree/nvim-web-devicons'},
-
+  { 'nvim-tree/nvim-tree.lua' },
+  { 'nvim-tree/nvim-web-devicons' },
+  { 'akinsho/bufferline.nvim',    version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+  -- {'navarasu/onedark.nvim'},
   {
-    -- Theme 
+    -- Theme
     'morhetz/gruvbox',
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'gruvbox'
     end,
   },
-
+  --
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
@@ -194,7 +210,8 @@ require('lazy').setup({
       },
     },
   },
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
+  { 'nvim-telescope/telescope-fzf-native.nvim', build =
+  'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   }
   ,
 
@@ -222,15 +239,57 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
 }, {})
+-- Lua
+-- require('onedark').setup {
+--     style = 'darker'
+-- }
+-- require('onedark').load()
+-- -- empty setup using defaults
+-- --require("nvim-tree").setup()
 
--- empty setup using defaults
---require("nvim-tree").setup()
+require("bufferline").setup({})
+require("toggleterm").setup({
+  direction = 'float',
+  close_on_exit = true, -- close the terminal window when the process exits
+  -- Change the default shell. Can be a string or a function returning a string
+  -- shell = vim.o.shell,
+  shell = 'powershell',
+  auto_scroll = true, -- automatically scroll to the bottom on terminal output
+  -- This field is only relevant if direction is set to 'float'
+  float_opts = {
+    -- The border key is *almost* the same as 'nvim_open_win'
+    -- see :h nvim_open_win for details on borders however
+    -- the 'curved' border is a custom border type
+    -- not natively supported but implemented in this plugin.
+    border = 'curved', -- | ... other options supported by win open
+    -- like `size`, width and height can be a number or function which is passed the current terminal
+    width = 120,
+    height = 40,
+    winblend = 3,
+    zindex = 1,
+  },
+})
+
+local function my_on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+  -- custom mappings
+  vim.keymap.set('n', '<C-y>', api.node.open.vertical,        opts('Open vertical split'))
+  -- vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
+end
 
 -- OR setup with some options
 require("nvim-tree").setup({
   -- sort_by = "case_sensitive",
+  on_attach=my_on_attach,
   sort = {
-    sorter = "case_sensitive",},
+    sorter = "case_sensitive", },
   view = {
     width = 30,
     number = true,
@@ -243,7 +302,7 @@ require("nvim-tree").setup({
     full_name = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
 })
 -- [[ Setting options ]]
@@ -262,8 +321,8 @@ require('telescope').setup {
       },
     },
     file_ignore_patterns = {
-    "git",
-    "venv"
+      "git",
+      "venv"
     },
   },
 }
@@ -300,16 +359,16 @@ local function live_grep_git_root()
   local git_root = find_git_root()
   if git_root then
     require('telescope.builtin').live_grep({
-      search_dirs = {git_root},
+      search_dirs = { git_root },
     })
   end
 end
 
 vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
 
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "python", "lua", "vim", "vimdoc"},
+  ensure_installed = { "python", "lua", "vim", "vimdoc" },
   -- ensure_installed = { "python"},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -444,7 +503,7 @@ local on_attach = function(_, bufnr)
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
--- keep visual selection when (de)indenting
+  -- keep visual selection when (de)indenting
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
@@ -468,6 +527,7 @@ require('which-key').register {
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+  ['<leader>b'] = { name = '[B]uffer', _ = 'which_key_ignore' },
 }
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -484,12 +544,12 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 -- L'unico che ha funzionto per Python
-require'lspconfig'.jedi_language_server.setup{}
+-- require'lspconfig'.jedi_language_server.setup{}
 --
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
@@ -575,6 +635,6 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
   },
 }
-

@@ -7,6 +7,7 @@ o.splitright = true -- this way the split opens on the right
 o.splitbelow = true -- this way the split opens below
 -- set termguicolors to enable highlight groups
 o.termguicolors = true
+-- Disable netrw because interfere with nvim-tree
 -- disable netrw at the very start of your init.lua
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
@@ -16,7 +17,10 @@ o.hlsearch = true
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
--- vim.g.startify_bookmarks = true
+vim.g.startify_bookmarks = {'C:/Users/forteg/AppData/Local/nvim/',
+'C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python',
+}
+vim.g.startify_custom_header = false
 -- Enable mouse mode
 o.mouse = 'a'
 

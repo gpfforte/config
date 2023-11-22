@@ -4,15 +4,17 @@ local map = vim.keymap.set
 -- vim.keymap.set('n', '<leader>f', ':NvimTreeToggle<CR>', {
 --   noremap = true
 -- })
-map('n', '<F2>', ':NvimTreeToggle<CR>', {
-  noremap = true
-})
-
--- [[ Basic Keymaps ]]
-
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+map('n', '<F2>', ':NvimTreeToggle<CR>', {noremap = true})
+
+map('n', '<F3>', ':Startify<CR>', {noremap = true})
+
+map('n', '<F4>', ':ToggleTerm<CR>', {noremap = true, desc='Open Terminal'})
+
+-- [[ Basic Keymaps ]]
 
 -- Remap for dealing with word wrap
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -62,12 +64,17 @@ map("n", "<C-k>","<C-w>k")
 -- Turn off search matches with double-<Esc>
 map("n", "<Esc><Esc>", "<Esc>:nohlsearch<CR>", { silent = true })
 -- Toggle display of `listchars`
-map("n", "<leader>'", "<Esc>:set list!<CR>",
-  { silent = true, desc = "toggle 'listchars' on/off" })
+map("n", "<leader>'", "<Esc>:set list!<CR>",  { silent = true, desc = "toggle 'listchars' on/off" })
 -- Change current working dir (:pwd) to curent file's folder
-map("n", "<leader>%",  function() require("utils").set_cwd() end,
+map("n", "<leader>%",  function() require("gpf.utils").set_cwd() end,
   { silent = true, desc = "smart set cwd (git|file parent)" })
 -- Open python directory
-map("n", "<leader>p", ":cd C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python <CR>", { silent = true, desc = "cd Python" })
+map("n", "<leader>p", ":cd C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python <CR>", { silent = false, desc = "cd Python" })
 
+-- Buffer Management
+map("n", "<leader>bn", "<Esc>:new<CR>",  { silent = true, desc = "[B]uffer [N]ew" })
+map("n", "<leader>bd", "<Esc>:bdelete<CR>",  { silent = true, desc = "[B]uffer [D]elete" })
+map("n", "<leader>bn", "<Esc>:bn<CR>",  { silent = true, desc = "[B]uffer [N]ext" })
+map("n", "<leader>bp", "<Esc>:bp<CR>",  { silent = true, desc = "[B]uffer [P]revious" })
+map('n', '<leader>bl', require('telescope.builtin').buffers, { desc = '[B]uffer [L]ist' })
 
