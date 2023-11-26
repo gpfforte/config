@@ -1,6 +1,8 @@
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 -- Set <space> as the leader key
 -- See `:help mapleader`
+-- DONE colored bracket
+-- DONE color csv fare autommand solo per csv_semicolon - vedi in fondo
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.o.clipboard = "unnamed"
@@ -14,6 +16,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+
 
 -- When editing a file, always jump to the last known cursor position.
 -- Don't do it when the position is invalid, when inside an event handler
@@ -42,6 +46,16 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+-- Associate .csv with semicolon
+-- autocmd BufNewFile,BufRead *.csv   set filetype=csv_semicolon
+
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'},
+  {pattern = {'*.csv'},
+  group = vim.g.user.event,
+  command = "set filetype=csv_semicolon"
+})
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 --vim: ts=2 sts=2 sw=2 et

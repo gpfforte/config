@@ -2,6 +2,7 @@ local o         = vim.opt
 local g         = vim.g
 
 o.colorcolumn = "79" -- set a visual marker to see the right margin
+o.scrolloff = 999
 o.foldlevel = 99 -- set in a way that the programs open unfolded
 o.splitright = true -- this way the split opens on the right
 o.splitbelow = true -- this way the split opens below

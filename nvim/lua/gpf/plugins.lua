@@ -45,6 +45,7 @@ require('lazy').setup({
   --Folding
   "tmhedberg/SimpylFold",
   'mhinz/vim-startify',
+  'mechatroner/rainbow_csv',
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -55,6 +56,15 @@ require('lazy').setup({
       })
     end
   },
+-- {
+--   "folke/todo-comments.nvim",
+--   dependencies = { "nvim-lua/plenary.nvim" },
+--   opts = {
+--     -- your configuration comes here
+--     -- or leave it empty to use the default settings
+--     -- refer to the configuration section below
+--   }
+-- },
   -- Toggle Term
   {
     'akinsho/toggleterm.nvim',
@@ -163,6 +173,8 @@ require('lazy').setup({
       vim.cmd.colorscheme 'gruvbox'
     end,
   },
+  -- Colorize brackets
+  {'HiPhish/nvim-ts-rainbow2'},
   --
   {
     -- Set lualine as statusline
@@ -246,7 +258,6 @@ require('lazy').setup({
 -- require('onedark').load()
 -- -- empty setup using defaults
 -- --require("nvim-tree").setup()
-
 require("bufferline").setup({})
 require("toggleterm").setup({
   direction = 'float',
@@ -280,7 +291,7 @@ local function my_on_attach(bufnr)
   -- default mappings
   api.config.mappings.default_on_attach(bufnr)
   -- custom mappings
-  vim.keymap.set('n', '<C-y>', api.node.open.vertical,        opts('Open vertical split'))
+  vim.keymap.set('n', '<C-y>', api.node.open.vertical, opts('Open vertical split'))
   -- vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
 end
 
@@ -292,7 +303,7 @@ require("nvim-tree").setup({
     sorter = "case_sensitive", },
   view = {
     width = 30,
-    number = true,
+    number = false,
     float = {
       enable = false
     },
@@ -308,7 +319,6 @@ require("nvim-tree").setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -329,7 +339,6 @@ require('telescope').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
-
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path
 local function find_git_root()
@@ -400,6 +409,15 @@ require 'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+    rainbow = {
+    enable = true,
+    -- list of languages you want to disable the plugin for
+    disable = { 'jsx', 'cpp' },
+    -- Which query to use for finding delimiters
+    query = 'rainbow-parens',
+    -- Highlight the entire buffer all at once
+    strategy = require('ts-rainbow').strategy.global,
+  }
 }
 
 --[[ Configure Treesitter ]]
@@ -528,6 +546,8 @@ require('which-key').register {
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
   ['<leader>b'] = { name = '[B]uffer', _ = 'which_key_ignore' },
+  ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
+  ['<leader>p'] = { name = '[P]ane', _ = 'which_key_ignore' },
 }
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -638,3 +658,4 @@ cmp.setup {
     { name = 'buffer' },
   },
 }
+
