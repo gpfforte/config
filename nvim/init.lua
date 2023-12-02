@@ -37,18 +37,7 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
-
-require 'gpf.general'
-require 'gpf.plugins'
-
--- From vim defaults.vim
--- ---
---
--- Following there all the required files that can be plugin or configuration 
-require 'gpf.autopairs-config'
-require "gpf.options"
-require "gpf.keymaps"
---require("nvim-tree.api").tree.open({path="C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python"})
+require 'gpf'
 -- 
 --
 --

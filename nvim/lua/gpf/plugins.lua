@@ -37,15 +37,23 @@ require('lazy').setup({
   -- {
   --     "sheerun/vim-polyglot"
   -- },
-  -- Better Syntax
-  -- Added This Plugin
+  -- Better Syntax highlighting for Python
   "numirias/semshi",
   -- Added This Plugin
   --"vim-python/python-syntax",
   --Folding
   "tmhedberg/SimpylFold",
+  -- Start Screen
   'mhinz/vim-startify',
+  -- CSV colorizer
   'mechatroner/rainbow_csv',
+  -- color colorizer and picker
+  'uga-rosa/ccc.nvim',
+  -- Undo possibility to the top
+  'mbbill/undotree',
+  -- Little marker at the left of a line indicating if inserte modified etc
+  'lewis6991/gitsigns.nvim',
+  -- Surround is useful to surround textobjects with other text
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -56,15 +64,15 @@ require('lazy').setup({
       })
     end
   },
--- {
---   "folke/todo-comments.nvim",
---   dependencies = { "nvim-lua/plenary.nvim" },
---   opts = {
---     -- your configuration comes here
---     -- or leave it empty to use the default settings
---     -- refer to the configuration section below
---   }
--- },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   opts = {
+  --     -- your configuration comes here
+  --     -- or leave it empty to use the default settings
+  --     -- refer to the configuration section below
+  --   }
+  -- },
   -- Toggle Term
   {
     'akinsho/toggleterm.nvim',
@@ -135,7 +143,7 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+        vim.keymap.set('n', '<leader>gh', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -163,31 +171,97 @@ require('lazy').setup({
   -- nvim tree
   { 'nvim-tree/nvim-tree.lua' },
   { 'nvim-tree/nvim-web-devicons' },
+
   { 'akinsho/bufferline.nvim',    version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
-  -- {'navarasu/onedark.nvim'},
+  { 'navarasu/onedark.nvim' },
   {
-    -- Theme
-    'morhetz/gruvbox',
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
+    -- config = function()
+    --   vim.cmd.colorscheme 'catppuccin'
+    -- end,
+
+  },
+  {
+    "folke/tokyonight.nvim",
+    -- ensure that the color scheme is loaded at the very beginning
+    lazy = false,
+    priority = 1000,
+    -- enable the colorscheme
+    -- config = function() vim.cmd.colorscheme("tokyonight") end,
+  },
+
+  {
+    'ChristianChiarulli/nvcode-color-schemes.vim',
+
     config = function()
-      vim.cmd.colorscheme 'gruvbox'
+      vim.cmd.colorscheme 'gruvboxgpf'
     end,
   },
+  -- {
+  --   -- Theme
+  --   'morhetz/gruvbox',
+  --   --'gruvbox-community/gruvbox',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'gruvbox'
+  --   end,
+  -- },
   -- Colorize brackets
-  {'HiPhish/nvim-ts-rainbow2'},
+  { 'HiPhish/nvim-ts-rainbow2' },
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter', lazy = true },
+    },
+    event = 'VeryLazy',
+    config = function()
+      -- Load treesitter grammar for org
+      require('orgmode').setup_ts_grammar()
+
+      -- Setup treesitter
+      require('nvim-treesitter.configs').setup({
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { 'org' },
+        },
+        ensure_installed = { 'org' },
+      })
+
+      -- Setup orgmode
+      require('orgmode').setup({
+        org_agenda_files = '~/orgfiles/**/*',
+        org_default_notes_file = '~/orgfiles/refile.org',
+      })
+    end,
+  },
+  { 'renerocksai/telekasten.nvim' },
+  { 'sudormrfbin/cheatsheet.nvim' },
+  { 'nvim-lua/popup.nvim' },
   --
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    --%{FugitiveStatusline()}
     -- See `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'gruvbox',
-        component_separators = '|',
-        section_separators = '',
+        -- theme = 'gruvbox',
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
       },
-    },
+      sections = {
+        lualine_a = { 'mode' },
+        -- lualine_b = {'branch', 'diff', 'diagnostics','FugitiveStatusline'},
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
+      }
+    }
   },
 
   {
@@ -222,11 +296,22 @@ require('lazy').setup({
       },
     },
   },
-  { 'nvim-telescope/telescope-fzf-native.nvim', build =
-  'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build =
+    'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   }
   ,
-
+  -- {
+  --   'nvimdev/dashboard-nvim',
+  --   event = 'VimEnter',
+  --   config = function()
+  --     require('dashboard').setup {
+  --       -- config
+  --     }
+  --   end,
+  --   dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  -- },
 
   {
     -- Highlight, edit, and navigate code
@@ -235,6 +320,34 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+  },
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre", -- load the plugin before saving
+    keys = {
+      {
+        "<leader>ft",
+        function() require("conform").format({ lsp_fallback = true }) end,
+        desc = "Format",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        -- first use isort and then black
+        python = { "isort", "black" },
+        -- "inject" is a special formatter from conform.nvim, which
+        -- formats treesitter-injected code. Basically, this makes
+        -- conform.nvim format python codeblocks inside a markdown file.
+        markdown = { "inject" },
+      },
+      -- enable format-on-save
+      format_on_save = {
+        -- when no formatter is setup for a filetype, fallback to formatting
+        -- via the LSP. This is relevant e.g. for taplo (toml LSP), where the
+        -- LSP can handle the formatting for us
+        lsp_fallback = true,
+      },
+    },
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -258,6 +371,10 @@ require('lazy').setup({
 -- require('onedark').load()
 -- -- empty setup using defaults
 -- --require("nvim-tree").setup()
+require('telekasten').setup({
+  home = vim.fn.expand("c:/users/forteg/Appdata/Local/nvim/zettelkasten"), -- Put the name of your notes directory here
+})
+
 require("bufferline").setup({})
 require("toggleterm").setup({
   direction = 'float',
@@ -291,14 +408,14 @@ local function my_on_attach(bufnr)
   -- default mappings
   api.config.mappings.default_on_attach(bufnr)
   -- custom mappings
-  vim.keymap.set('n', '<C-y>', api.node.open.vertical, opts('Open vertical split'))
+  vim.keymap.set('n', '<C-y>', api.node.open.vertical, opts('Open: Vertical Split'))
   -- vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
 end
 
 -- OR setup with some options
 require("nvim-tree").setup({
   -- sort_by = "case_sensitive",
-  on_attach=my_on_attach,
+  on_attach = my_on_attach,
   sort = {
     sorter = "case_sensitive", },
   view = {
@@ -388,7 +505,7 @@ require 'nvim-treesitter.configs'.setup {
   auto_install = false,
 
   -- List of parsers to ignore installing (or "all")
-  ignore_install = { "javascript" },
+  ignore_install = { "c" },
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -407,9 +524,9 @@ require 'nvim-treesitter.configs'.setup {
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = true,
   },
-    rainbow = {
+  rainbow = {
     enable = true,
     -- list of languages you want to disable the plugin for
     disable = { 'jsx', 'cpp' },
@@ -420,15 +537,15 @@ require 'nvim-treesitter.configs'.setup {
   }
 }
 
---[[ Configure Treesitter ]]
---See `:help nvim-treesitter`
---Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
+-- [[ Configure Treesitter ]]
+-- See `:help nvim-treesitter`
+-- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 -- vim.defer_fn(function()
 --   require('nvim-treesitter.configs').setup {
 --     -- Add languages to be installed here that you want installed for treesitter
--- --    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
--- --    ensure_installed = { 'python', 'vimdoc', 'vim', 'bash' },
---     ensure_installed = { 'python'},
+--     --    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+--     --    ensure_installed = { 'python', 'vimdoc', 'vim', 'bash' },
+--     ensure_installed = { 'python' },
 --
 --     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
 --     auto_install = false,
@@ -516,17 +633,17 @@ local on_attach = function(_, bufnr)
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ls', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<M-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
   -- keep visual selection when (de)indenting
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
+  nmap('<leader>la', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  nmap('<leader>lr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  nmap('<leader>ll', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
@@ -541,13 +658,14 @@ require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
+  -- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+  ['<leader>l'] = { name = '[L]sp', _ = 'which_key_ignore' },
   ['<leader>b'] = { name = '[B]uffer', _ = 'which_key_ignore' },
   ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
-  ['<leader>p'] = { name = '[P]ane', _ = 'which_key_ignore' },
+  ['<leader>w'] = { name = '[W]indow', _ = 'which_key_ignore' },
+  ['<leader>o'] = { name = '[O]rg Mode', _ = 'which_key_ignore' },
 }
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -658,4 +776,19 @@ cmp.setup {
     { name = 'buffer' },
   },
 }
+local ccc = require("ccc")
+ccc.setup({
+  -- Your preferred settings
+  -- Example: enable highlighter
+  highlighter = {
+    auto_enable = true,
+    lsp = true,
+  }
+  -- pickers = {
+  --    ccc.picker.custom_entries({
+  --      red = "#ff0000",
+  --      green = "#00ff00",
+  --    }),
+  --  },
+})
 
