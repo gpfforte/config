@@ -1,23 +1,29 @@
-local o                  = vim.opt
-local g                  = vim.g
+local o               = vim.opt
+local g               = vim.g
 
-vim.wo.cursorcolumn      = true
-o.colorcolumn            = "79" -- set a visual marker to see the right margin
-o.scrolloff              = 15
-o.foldlevel              = 99   -- set in a way that the programs open unfolded
-o.splitright             = true -- this way the split opens on the right
-o.splitbelow             = true -- this way the split opens below
+vim.wo.cursorcolumn   = true
+o.colorcolumn         = "79"    -- set a visual marker to see the right margin
+o.scrolloff           = 15
+o.foldlevel           = 99      -- set in a way that the programs open unfolded
+o.splitright          = true    -- this way the split opens on the right
+o.splitbelow          = true    -- this way the split opens below
 -- set termguicolors to enable highlight groups
-o.termguicolors          = true
+o.termguicolors       = true
 -- Set highlight on search
-o.hlsearch               = true
+o.hlsearch            = true
 
 -- Make line numbers default
-vim.wo.number            = true
-vim.wo.relativenumber    = true
-vim.g.startify_bookmarks = { 'C:/Users/forteg/AppData/Local/nvim/',
-  'C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python',
-}
+vim.wo.number         = true
+vim.wo.relativenumber = true
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  vim.g.startify_bookmarks = { 'C:/Users/forteg/AppData/Local/nvim/',
+    'C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python',
+  }
+else
+  vim.g.startify_bookmarks = { '\\$HOME\\.config\\nvim\\',
+  }
+end
+
 g.startify_custom_header = false
 -- Enable mouse mode
 o.mouse                  = 'a'
