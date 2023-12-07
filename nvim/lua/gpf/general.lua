@@ -4,6 +4,8 @@
 -- DONE colored bracket
 -- DONE color csv fare autommand solo per csv_semicolon - vedi in fondo
 -- DONE colorize HEX or RGB colors
+-- TODO cool launcher in floating window
+
 vim.g.mapleader          = ' '
 vim.g.maplocalleader     = ' '
 -- Disable netrw because interfere with nvim-tree

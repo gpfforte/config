@@ -2,11 +2,11 @@ local o               = vim.opt
 local g               = vim.g
 
 vim.wo.cursorcolumn   = true
-o.colorcolumn         = "79"    -- set a visual marker to see the right margin
+o.colorcolumn         = "79" -- set a visual marker to see the right margin
 o.scrolloff           = 15
-o.foldlevel           = 99      -- set in a way that the programs open unfolded
-o.splitright          = true    -- this way the split opens on the right
-o.splitbelow          = true    -- this way the split opens below
+o.foldlevel           = 99   -- set in a way that the programs open unfolded
+o.splitright          = true -- this way the split opens on the right
+o.splitbelow          = true -- this way the split opens below
 -- set termguicolors to enable highlight groups
 o.termguicolors       = true
 -- Set highlight on search
@@ -16,11 +16,11 @@ o.hlsearch            = true
 vim.wo.number         = true
 vim.wo.relativenumber = true
 if vim.loop.os_uname().sysname == "Windows_NT" then
-  vim.g.startify_bookmarks = { 'C:/Users/forteg/AppData/Local/nvim/',
-    'C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python',
+  vim.g.startify_bookmarks = { '$HOME/AppData/Local/nvim/',
+    '$HOME/OneDrive - Fratelli Carli Spa/Desktop/Python',
   }
 else
-  vim.g.startify_bookmarks = { '\\$HOME\\.config\\nvim\\',
+  vim.g.startify_bookmarks = { '$HOME/.config/nvim/',
   }
 end
 

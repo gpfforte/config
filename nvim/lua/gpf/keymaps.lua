@@ -98,9 +98,16 @@ map("n", "<leader>'", "<Esc>:set list!<CR>", { silent = true, desc = "toggle 'li
 map("n", "<leader>%", function() require("gpf.utils").set_cwd() end,
   { silent = true, desc = "smart set cwd (git|file parent)" })
 -- Open python directory
-map("n", "<leader>wp", ":cd C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python <CR>",
-  { silent = false, desc = "cd Python" })
-map("n", "<leader>wc", ":cd C:/Users/forteg/Appdata/Local/nvim <CR>", { silent = false, desc = "cd Nvim configuration" })
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  map("n", "<leader>wp", ":cd C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python <CR>",
+    { silent = false, desc = "cd Python" })
+  map("n", "<leader>wn", ":cd C:/Users/forteg/Appdata/Local/nvim <CR>",
+    { silent = false, desc = "cd Nvim configuration" })
+else
+  map("n", "<leader>wn", ":cd $HOME/.config/nvim <CR>", { silent = false, desc = "cd Nvim configuration" })
+end
+
+map("n", "<leader>wc", ":q <CR>", { silent = false, desc = "Exit Neovim" })
 
 -- Buffer Management
 map('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })

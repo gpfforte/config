@@ -199,6 +199,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'gruvboxgpf'
     end,
   },
+  { "rebelot/kanagawa.nvim" },
   -- {
   --   -- Theme
   --   'morhetz/gruvbox',
@@ -274,7 +275,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',      opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -349,6 +350,34 @@ require('lazy').setup({
       },
     },
   },
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},
+          -- ["core.completion"] = {},
+          ["core.concealer"] = {},
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/notes",
+                -- emacs_org = "~/AppData/Roaming/Documents/org",
+              },
+              default_workspace = "notes",
+            },
+          },
+        },
+      }
+
+      vim.wo.foldlevel = 99
+      vim.wo.conceallevel = 2
+    end,
+  },
+  { "nvim-neorg/tree-sitter-norg" },
+  { "nvim-neorg/neorg-telescope" },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -371,14 +400,21 @@ require('lazy').setup({
 -- require('onedark').load()
 -- -- empty setup using defaults
 -- --require("nvim-tree").setup()
-require('telekasten').setup({
-  home = vim.fn.expand("c:/users/forteg/Appdata/Local/nvim/zettelkasten"), -- Put the name of your notes directory here
-})
-
+-- require('neorg').setup {
+--   load = {
+--     ["core.defaults"] = {}
+--   }
+-- }
 require("bufferline").setup({})
 if vim.loop.os_uname().sysname == "Windows_NT" then
+  require('telekasten').setup({
+    home = vim.fn.expand("$HOME/Appdata/Local/nvim/zettelkasten"), -- Put the name of your notes directory here
+  })
   terminale = 'powershell'
 else
+  require('telekasten').setup({
+    home = vim.fn.expand("$HOME/.config/nvim/zettelkasten"), -- Put the name of your notes directory here
+  })
   terminale = 'fish'
 end
 require("toggleterm").setup({
@@ -499,7 +535,7 @@ vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
 
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "python", "lua", "vim", "vimdoc" },
+  ensure_installed = { "python", "lua", "vim", "vimdoc", "c", "cpp", "javascript", "bash" },
   -- ensure_installed = { "python"},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -510,7 +546,7 @@ require 'nvim-treesitter.configs'.setup {
   auto_install = false,
 
   -- List of parsers to ignore installing (or "all")
-  ignore_install = { "c" },
+  ignore_install = { "rust" },
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
@@ -522,7 +558,7 @@ require 'nvim-treesitter.configs'.setup {
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = { "c", "rust" },
+    disable = { "rust" },
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -531,10 +567,11 @@ require 'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
   },
+  indent = { enable = true },
   rainbow = {
     enable = true,
     -- list of languages you want to disable the plugin for
-    disable = { 'jsx', 'cpp' },
+    -- disable = { 'jsx', 'cpp' },
     -- Which query to use for finding delimiters
     query = 'rainbow-parens',
     -- Highlight the entire buffer all at once
