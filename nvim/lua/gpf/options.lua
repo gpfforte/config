@@ -21,6 +21,7 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   }
 else
   vim.g.startify_bookmarks = { '$HOME/.config/nvim/',
+    '/mnt/c/Users/forteg/Onedrive - Fratelli Carli Spa/Desktop/Python/',
   }
 end
 
@@ -94,3 +95,5 @@ o.showbreak      = "↪ "
 -- vim.cmd.colorscheme("gruvbox")
 vim.diagnostic.config { virtual_text = false }
 
+			
+vim.cmd("colorscheme gruvboxgpf") -- Replace this with your favorite colorscheme
