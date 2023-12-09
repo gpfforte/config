@@ -118,4 +118,13 @@ map("n", "<leader>bd", "<Esc>:bdelete<CR>", { silent = true, desc = "[B]uffer [D
 map("n", "<leader>bk", "<Esc>:bdelete<CR>", { silent = true, desc = "[B]uffer Kill" })
 map("n", "<leader>bn", "<Esc>:bn<CR>", { silent = true, desc = "[B]uffer [N]ext" })
 map("n", "<leader>bp", "<Esc>:bp<CR>", { silent = true, desc = "[B]uffer [P]revious" })
+-- Lua
+map("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Trouble Toggle" })
+map("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end,
+  { desc = "Trouble Workspace Diagnostic" })
+map("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end,
+  { desc = "Trouble Document Diagnostic" })
+map("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, { desc = "Trouble QuickFix" })
+map("n", "<leader>xl", function() require("trouble").toggle("loclist") end, { desc = "Trouble LocList" })
+-- map("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = "Trouble Lsp References" })
 
