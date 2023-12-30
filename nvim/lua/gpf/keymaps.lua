@@ -55,6 +55,7 @@ map('n', '<leader>gs', vim.cmd.Git, { desc = '[G]it [S]tatus' })
 map('n', '<leader>gc', ':Git commit -a <CR>', { desc = '[G]it [C]ommit' })
 map('n', '<leader>gp', ':Git push<CR>', { desc = '[G]it [P]ush' })
 map('n', '<leader>gl', ':Git pull<CR>', { desc = '[G]it [P]ull' })
+map('n', '<leader>gt', ':Git add . <CR>', { desc = '[G]it s[T]age' })
 
 map('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 map('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })

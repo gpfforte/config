@@ -8,7 +8,7 @@ set background=dark
 " let g:colors_name='gruvbox'
 
 " hi Normal guifg=#ebdbb2 ctermfg=223 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
-hi Normal guifg=#ebdbb2 ctermfg=223 guibg=#222222 ctermbg=235 gui=NONE cterm=NONE
+hi Normal guifg=#ebdbb2 ctermfg=223 guibg=#111111 ctermbg=235 gui=NONE cterm=NONE
 hi Comment guifg=#665c54 ctermfg=59 guibg=NONE ctermbg=NONE gui=italic cterm=italic
 hi Constant guifg=#83a598 ctermfg=172 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi String guifg=#98FF98 ctermfg=100 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE

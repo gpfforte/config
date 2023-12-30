@@ -21,8 +21,12 @@ return {
 		      autocmd VimEnter * hi DiffText guifg=#00FF00 guibg=#005500
 		    ]])
 		end
-	}
-	,
+	},
+	-- Lazy
+	{
+		"olimorris/onedarkpro.nvim",
+		priority = 1000 -- Ensure it loads first
+	},
 
 	{ 'navarasu/onedark.nvim' },
 	{
@@ -47,7 +51,6 @@ return {
 		'ChristianChiarulli/nvcode-color-schemes.vim',
 
 		config = function()
-                        
 			vim.cmd("colorscheme gruvboxgpf") -- Replace this with your favorite colorscheme
 			-- Colorscheme overrides
 			vim.cmd([[

@@ -16,7 +16,7 @@ return {
       ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
       ['<leader>w'] = { name = '[W]indow', _ = 'which_key_ignore' },
       ['<leader>o'] = { name = '[O]rg Mode', _ = 'which_key_ignore' },
-      ['<leader>x'] = { name = 'Trouble', _ = 'which_key_ignore' },
+      ['<leader>x'] = { name = '[X]Trouble', _ = 'which_key_ignore' },
     }
   end
 }

@@ -16,13 +16,13 @@ o.hlsearch            = true
 vim.wo.number         = true
 vim.wo.relativenumber = true
 if vim.loop.os_uname().sysname == "Windows_NT" then
-  vim.g.startify_bookmarks = { '$HOME/AppData/Local/nvim/',
-    '$HOME/OneDrive - Fratelli Carli Spa/Desktop/Python',
-  }
+	vim.g.startify_bookmarks = { '$HOME/AppData/Local/nvim/',
+		'$HOME/OneDrive - Fratelli Carli Spa/Desktop/Python',
+	}
 else
-  vim.g.startify_bookmarks = { '$HOME/.config/nvim/',
-    '/mnt/c/Users/forteg/Onedrive - Fratelli Carli Spa/Desktop/Python/',
-  }
+	vim.g.startify_bookmarks = { '$HOME/.config/nvim/',
+		'/mnt/c/Users/forteg/Onedrive - Fratelli Carli Spa/Desktop/Python/',
+	}
 end
 
 g.startify_custom_header = false
@@ -80,14 +80,14 @@ o.updatetime     = 500
 
 o.cmdheight      = 2 -- cmdline height
 o.listchars      = {
-  tab      = "→ ",
-  eol      = "↲",
-  nbsp     = "␣",
-  lead     = "␣",
-  space    = "␣",
-  trail    = "•",
-  extends  = "⟩",
-  precedes = "⟨",
+	tab      = "→ ",
+	eol      = "↲",
+	nbsp     = "␣",
+	lead     = "␣",
+	space    = "␣",
+	trail    = "•",
+	extends  = "⟩",
+	precedes = "⟨",
 }
 o.showbreak      = "↪ "
 -- g.nvcode_termcolors = 256
@@ -95,5 +95,6 @@ o.showbreak      = "↪ "
 -- vim.cmd.colorscheme("gruvbox")
 vim.diagnostic.config { virtual_text = false }
 
-			
+
 vim.cmd("colorscheme gruvboxgpf") -- Replace this with your favorite colorscheme
+
