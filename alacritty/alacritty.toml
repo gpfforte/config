@@ -8,6 +8,17 @@ red = "#fc5454"
 white = "#ffffff"
 yellow = "#fce94f"
 
+# Dim colors
+[colors.dim]
+black = "#0f0f0f"  # Default
+red = "#712b2b"  # Default
+green = "#5f6f3a"  # Default
+yellow = "#a17e4d"  # Default
+blue = "#456877"  # Default
+magenta = "#704d68"  # Default
+cyan = "#4d7770"  # Default
+white = "#8e8e8e"  # Default
+
 [colors.normal]
 black = "#3f3f3f"
 blue = "#94bff3"
@@ -22,13 +33,16 @@ yellow = "#c4a000"
 background = "#222222"
 foreground = "#F9F9F9"
 
+[colors.line_indicator]
+foreground = "#666666"
+background = "#550000"
 # [font]
-# size = 11.0
-#
+# size = 11.0   
+#       
 # [font.bold]
 # family = "hack"
 # style = "Bold"
-#
+    #
 # [font.bold_italic]
 # family = "monospace"
 # style = "Bold Italic"
@@ -41,12 +55,9 @@ foreground = "#F9F9F9"
 # family = "hack"
 # style = "Regular"
 
-[[keyboard.bindings]]
-action = "ToggleFullscreen"
-key = "F11"
-
 [scrolling]
 history = 50000
+multiplier = 1
 
 [shell]
 program = "/bin/zsh"
@@ -54,8 +65,8 @@ args = ["-l"]
 
 [window]
 
-opacity = 1.0
-
+opacity = 0.9
+blur = true
 padding.x = 10
 padding.y = 10
 dynamic_padding = true
@@ -75,3 +86,86 @@ size = 12.0
 [bell]
 duration = 100
 color = "#FF0000"
+
+[selection]
+
+# Characters that are used as separators for "semantic words" in Alacritty
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\\t"  # Default: ",│`|:\"' ()[]{}<>\\t"
+
+# When set to true, selected text will be copied to the primary clipboard
+save_to_clipboard = true  # Default: false          
+
+[cursor]
+
+# Cursor style
+style = { shape = "Block", blinking = "On" }  # Default: shape = "Block", blinking = "Off"
+
+# Vi mode cursor style (falls back to the active value of the normal cursor if "None")
+vi_mode_style = "None"  # Default: "None"
+
+# Cursor blinking interval in milliseconds
+blink_interval = 750  # Default: 750
+
+# Time after which cursor stops blinking, in seconds
+blink_timeout = 0  # Default: 5
+
+# When true, the cursor will be rendered as a hollow box when the window is not focused
+unfocused_hollow = true  # Default: true
+
+# Thickness of the cursor relative to the cell width
+thickness = 0.15  # Default: 0.15
+
+[terminal]
+
+# Controls the OSC 52 behavior for clipboard interactions
+osc52 = "CopyPaste"  # Default: "OnlyCopy"
+
+#########
+# MOUSE #
+#########
+[mouse]
+
+# When true, the cursor is temporarily hidden when typing
+hide_when_typing = true  # Default: false
+
+# Mouse bindings (actual bindings need to be defined as per user preference)
+# Example: bindings = [{ mouse = "Left", action = "Paste" }]
+bindings = []
+
+[hints]
+
+# Define the keys used for hint labels
+alphabet = "jfkdls;ahgurieowpq"  # Default: "jfkdls;ahgurieowpq"
+
+# Enable specific hints
+#[[hints.enabled]]
+# Example configuration (actual settings to be defined based on user preference)
+# regex = "..."
+# hyperlinks = true
+# post_processing = true
+# persist = false
+# action = "..."
+# command = "..."
+# binding = { key = "...", mods = "...", mode = "..." }
+# mouse = { mods = "...", enabled = true }
+
+# For example, to make filename.rs:line:character file hints 
+# (e.g. my_crate/src/server.rs:181:49) clickable and open in Visual Studio Code, 
+#one can add the following section to Alacritty's TOML config:
+[[hints.enabled]]
+regex = "[^ ]+\\.rs:\\d+:\\d+"
+command = { program = "code", args = [ "--goto" ] }
+mouse = { enabled = true }
+
+# KEYBOARD section of Alacritty configuration
+
+[keyboard]
+    
+# Define keyboard bindings here
+# Example placeholder (actual bindings need to be defined based on user preference)
+bindings = [
+        { key = "F11", mods = "None", action = "ToggleFullScreen" },
+        { key = "Return", mods = "Control|Shift", action = "SpawnNewInstance" },    
+    # { key = "Key", mods = "Modifiers", chars = "Characters to send" },
+    # ...
+]
