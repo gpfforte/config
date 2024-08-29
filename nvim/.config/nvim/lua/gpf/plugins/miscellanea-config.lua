@@ -1,13 +1,13 @@
 return {
     { 'nvim-tree/nvim-web-devicons' },
-    {
-        'akinsho/bufferline.nvim',
-        version = "*",
-        dependencies = 'nvim-tree/nvim-web-devicons',
-        config = function()
-            require("bufferline").setup({})
-        end
-    },
+    -- {
+    --     'akinsho/bufferline.nvim',
+    --     version = "4.6.1",
+    --     dependencies = 'nvim-tree/nvim-web-devicons',
+    --     config = function()
+    --         require("bufferline").setup({})
+    --     end
+    -- },
     { 'numToStr/Comment.nvim',      opts = {} },
 
     -- Start Screen
@@ -47,4 +47,3 @@ return {
         opts = {},
     },
 }
-
