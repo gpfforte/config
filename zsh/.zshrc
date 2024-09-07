@@ -181,3 +181,4 @@ function chpwd() {
 bindkey -v
 
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
+[[ -f ~/.secrets ]] && . ~/.secrets
