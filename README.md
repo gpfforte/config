@@ -1,4 +1,4 @@
-* Descrizione
+# Descrizione
 
 Questo repository contiene i file delle mie configurazioni, è decisamente
 migliorata la gestione dopo avere scoperto stow, una una utility per generare
