@@ -1,0 +1,23 @@
+session_name: controllo
+windows:
+  - window_name: controllo
+    layout: even-vertical
+    # options:
+    #     main-pane-width: 60
+    panes:
+      - shell_command:
+          - htop
+      - shell_command:
+          - clear
+        focus: true
+  - window_name: logs
+    layout: even-vertical
+    # options:
+    #     main-pane-width: 90
+    panes:
+      - shell_command:
+          - clear
+          - authlog
+      - shell_command:
+          - clear
+          - apalog
