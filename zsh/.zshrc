@@ -162,7 +162,7 @@ if [ "$DISTRO" = "ubuntu" ] ||  [ "$DISTRO" = "debian" ]; then
     alias sps='sudo apt install'
 fi
 
-if [ "$DISTRO" = "arcolinux" ] ; then
+if [ "$DISTRO" = "arch" ] ; then
 # if grep -Po "(?<=^ID=).+" /etc/os-release | sed 's/"//g'="ubuntu"; then
     # ./somecommand | grep -q 'string'; then
     alias update='sudo pacman -Syyu'
