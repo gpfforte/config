@@ -59,9 +59,19 @@ background = "#550000"
 history = 50000
 multiplier = 1
 
-[terminal.shell]
+[shell]
 program = "/bin/zsh"
 args = ["-l"]
+
+
+[terminal]
+
+# Controls the OSC 52 behavior for clipboard interactions
+osc52 = "CopyPaste"  # Default: "OnlyCopy"
+
+#########
+# MOUSE #
+#########
 
 [window]
 
@@ -115,14 +125,7 @@ unfocused_hollow = true  # Default: true
 # Thickness of the cursor relative to the cell width
 thickness = 0.15  # Default: 0.15
 
-[terminal]
 
-# Controls the OSC 52 behavior for clipboard interactions
-osc52 = "CopyPaste"  # Default: "OnlyCopy"
-
-#########
-# MOUSE #
-#########
 [mouse]
 
 # When true, the cursor is temporarily hidden when typing
