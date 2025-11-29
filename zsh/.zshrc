@@ -144,11 +144,9 @@ alias cl='clear'
 alias l.='ls -d .* --color=auto'
 alias authlog='sudo tail -f  /var/log/auth.log'
 alias systemlog='sudo tail -f /var/log/syslog'
-alias apaerrorlog='sudo tail -f /var/log/apache2/error.log'
-alias apaaccesslog='sudo tail -f /var/log/apache2/access.log'
-alias apalog='sudo tail -f /var/log/apache2/access.log  /var/log/apache2/error.log'
-alias sitelinglog='sudo tail -f /var/www/sites/lingueglietta/debug.log'
-alias sitefamilylog='sudo tail -f /var/www/sites/gpfblog/debug.log'
+alias nginxlog='docker logs -f gpfblog-nginx-1'
+alias sitelinglog='sudo tail -f /var/lib/docker/volumes/gpfblog_log_volume_lingueglietta/_data/debug_lingueglietta.log'
+alias sitefamilylog='sudo tail -f /var/lib/docker/volumes/gpfblog_log_volume/_data/debug.log'
 
 # SPECIFIC FOR DISTRO
 #
