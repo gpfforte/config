@@ -182,3 +182,8 @@ bindkey -v
 
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 [[ -f ~/.secrets ]] && . ~/.secrets
+
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval "$(ssh-agent -s)" > /dev/null
+  ssh-add ~/.ssh/id_rsa 2>/dev/null
+fi
