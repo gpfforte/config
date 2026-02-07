@@ -56,7 +56,7 @@ syntax on
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1
 " TODO: Pick a leader key
-" let mapleader = ","
+let mapleader = " "
 
 " Security
 set modelines=0
@@ -105,6 +105,7 @@ set laststatus=2
 " Last line
 set showmode
 set showcmd
+set timeoutlen=1000 " Set timeout length
 
 " Searching
 nnoremap / /\v
@@ -125,6 +126,8 @@ vnoremap <F1> :set invfullscreen<CR>
 
 " Formatting
 map <leader>q gqip
+" close a buffer without closing the window
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " Visualize tabs and newlines
 set listchars=tab:▸\ ,eol:¬
@@ -155,4 +158,11 @@ endif
 " Uncomment the following line so that vim closes if NERDTree is the last
 " buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
+au BufNewFile,BufRead *.py 
+            \ set tabstop=4 |
+            \ set softtabstop=4 |
+            \ set shiftwidth=4 |
+            \ set textwidth=79 |
+            \ set expandtab |
+            \ set autoindent |
+            \ set fileformat=unix
