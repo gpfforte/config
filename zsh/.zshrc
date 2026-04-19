@@ -163,7 +163,7 @@ fi
 if [ "$DISTRO" = "arch" ] ; then
 # if grep -Po "(?<=^ID=).+" /etc/os-release | sed 's/"//g'="ubuntu"; then
     # ./somecommand | grep -q 'string'; then
-    alias update='sudo paru -Syyu'
+    alias update='paru -Syu'
     alias sps='sudo pacman -S'
 fi
 #
