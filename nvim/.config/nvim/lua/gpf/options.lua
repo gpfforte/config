@@ -1,20 +1,21 @@
-local o               = vim.opt
-local g               = vim.g
+local o          = vim.opt
+local g          = vim.g
+local w          = vim.wo
 
-vim.wo.cursorcolumn   = true
-o.colorcolumn         = "79" -- set a visual marker to see the right margin
-o.scrolloff           = 15
-o.foldlevel           = 99   -- set in a way that the programs open unfolded
-o.splitright          = true -- this way the split opens on the right
-o.splitbelow          = true -- this way the split opens below
+w.cursorcolumn   = true
+o.colorcolumn    = "79"      -- set a visual marker to see the right margin
+o.scrolloff      = 15
+o.foldlevel      = 99        -- set in a way that the programs open unfolded
+o.splitright     = true      -- this way the split opens on the right
+o.splitbelow     = true      -- this way the split opens below
 -- set termguicolors to enable highlight groups
-o.termguicolors       = true
+o.termguicolors  = true
 -- Set highlight on search
-o.hlsearch            = true
+o.hlsearch       = true
 
 -- Make line numbers default
-vim.wo.number         = true
-vim.wo.relativenumber = true
+w.number         = true
+w.relativenumber = true
 if vim.loop.os_uname().sysname == "Windows_NT" then
 	vim.g.startify_bookmarks = { '$HOME/AppData/Local/nvim/',
 		'$HOME/OneDrive - Fratelli Carli Spa/Desktop/Python',
@@ -45,7 +46,7 @@ o.ignorecase             = true
 o.smartcase              = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn        = 'yes'
+w.signcolumn             = 'yes'
 
 -- Decrease update time
 o.updatetime             = 250
@@ -97,4 +98,3 @@ vim.diagnostic.config { virtual_text = false }
 
 
 vim.cmd("colorscheme gruvboxgpf") -- Replace this with your favorite colorscheme
-
