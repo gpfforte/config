@@ -3,11 +3,11 @@ local g          = vim.g
 local w          = vim.wo
 
 w.cursorcolumn   = true
-o.colorcolumn    = "79"      -- set a visual marker to see the right margin
+o.colorcolumn    = "79" -- set a visual marker to see the right margin
 o.scrolloff      = 15
-o.foldlevel      = 99        -- set in a way that the programs open unfolded
-o.splitright     = true      -- this way the split opens on the right
-o.splitbelow     = true      -- this way the split opens below
+o.foldlevel      = 99   -- set in a way that the programs open unfolded
+o.splitright     = true -- this way the split opens on the right
+o.splitbelow     = true -- this way the split opens below
 -- set termguicolors to enable highlight groups
 o.termguicolors  = true
 -- Set highlight on search
