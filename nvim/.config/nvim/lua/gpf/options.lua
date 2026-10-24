@@ -71,6 +71,7 @@ o.wrap           = false
 o.shiftwidth     = 4
 o.smartindent    = true
 o.softtabstop    = 4
+o.tabstop        = 4
 o.wildignorecase = true
 
 -- System

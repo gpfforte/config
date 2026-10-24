@@ -128,4 +128,3 @@ map("n", "<leader>xd", function() require("trouble").toggle("document_diagnostic
 map("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, { desc = "Trouble QuickFix" })
 map("n", "<leader>xl", function() require("trouble").toggle("loclist") end, { desc = "Trouble LocList" })
 -- map("n", "gR", function() require("trouble").toggle("lsp_references") end, { desc = "Trouble Lsp References" })
-
