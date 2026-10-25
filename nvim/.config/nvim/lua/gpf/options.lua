@@ -98,4 +98,4 @@ o.showbreak      = "↪ "
 vim.diagnostic.config { virtual_text = false }
 
 
-vim.cmd("colorscheme gruvboxgpf") -- Replace this with your favorite colorscheme
+-- vim.cmd("colorscheme gruvboxgpf") -- Replace this with your favorite colorscheme
