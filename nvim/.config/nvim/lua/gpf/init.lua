@@ -24,6 +24,9 @@ require("lazy").setup("gpf.plugins", {
 		enabled = true, -- automatically check for config file changes and reload the ui
 		notify = true, -- turn off notifications whenever plugin changes are made
 	},
+	rocks = {
+		enabled = false,
+	},
 })
 
 -- require 'gpf.plugins'
@@ -31,4 +34,3 @@ require("lazy").setup("gpf.plugins", {
 require "gpf.options"
 require "gpf.keymaps"
 --require("nvim-tree.api").tree.open({path="C:/Users/forteg/OneDrive - Fratelli Carli Spa/Desktop/Python"})
-

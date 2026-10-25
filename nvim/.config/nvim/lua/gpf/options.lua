@@ -3,7 +3,7 @@ local g          = vim.g
 local w          = vim.wo
 
 w.cursorcolumn   = true
-o.colorcolumn    = "79" -- set a visual marker to see the right margin
+-- o.colorcolumn    = "79" -- set a visual marker to see the right margin
 o.scrolloff      = 15
 o.foldlevel      = 99   -- set in a way that the programs open unfolded
 o.splitright     = true -- this way the split opens on the right
@@ -80,7 +80,7 @@ o.swapfile       = false
 o.undolevels     = 10000
 o.updatetime     = 500
 
-o.cmdheight      = 2 -- cmdline height
+o.cmdheight      = 3 -- cmdline height
 o.listchars      = {
 	tab      = "→ ",
 	eol      = "↲",

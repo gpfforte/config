@@ -10,8 +10,16 @@ return {
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', opts = {} },
 
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
+      -- Modern Lua configuration for Neovim (replaces neodev)
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+          library = {
+            { path = "${3rd}/luv/library", words = { "vim.uv" } },
+          },
+        },
+      },
     },
     config = function()
       local on_attach = function(_, bufnr)
@@ -56,11 +64,12 @@ return {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
+            diagnostics = {
+              globals = { "vim" },
+            },
           },
         },
       }
-
-      require('neodev').setup()
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
