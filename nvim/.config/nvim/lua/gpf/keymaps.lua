@@ -63,7 +63,11 @@ map('n', '<leader>gp', ':Git push<CR>', { desc = '[G]it [P]ush' })
 map('n', '<leader>gl', ':Git pull<CR>', { desc = '[G]it [P]ull' })
 map('n', '<leader>gt', ':Git add . <CR>', { desc = '[G]it s[T]age' })
 
+
 map('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+-- map('n', '<leader>sw', function()
+--   require('telescope.builtin').grep_string({ search = vim.fn.expand("<cword>") })
+-- end, { desc = '[S]earch current [W]ord' })
 map('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 map('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 map('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
