@@ -6,7 +6,7 @@ function _G.dump(...)
   print(unpack(objects))
 end
 
-local DEV_DIR = "$HOME/Sources/nvim"
+local DEV_DIR = "$HOME/scripts/nvim"
 
 local M = {}
 
